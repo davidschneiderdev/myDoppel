@@ -1,25 +1,20 @@
 
-const referenceImage = document.getElementById('referenceImage')
-const queryImage1 = document.getElementById('queryImage1')
+const referenceImage = document.getElementById('referenceImage');
+const queryImage1 = document.getElementById('queryImage1');
 
 // console.log(faceapi.nets)
 
 async function loadModel() {
-    await faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-    // await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-    await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models'),
+    // await faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+    await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
+    await faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+    // await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models'),
     await faceapi.nets.faceRecognitionNet.loadFromUri('/models')
 }
 
 
-// async function getDetection() {
-//     const detection = await faceapi.detectSingleFace(referenceImage)
-//     console.log(detection)
-// }
-
 async function compareFaces() {
-    const useTinyModel = true;
-    const results = await faceapi.detectSingleFace(referenceImage, new faceapi.TinyFaceDetectorOptions).withFaceLandmarks(useTinyModel).withFaceDescriptor()
+    const results = await faceapi.detectSingleFace(referenceImage).withFaceLandmarks().withFaceDescriptor()
     // console.log(results)
 
     if (!results) {
@@ -29,7 +24,7 @@ async function compareFaces() {
 
     // const faceMatcher = new faceapi.FaceMatcher(results)
 
-    const singleResult = await faceapi.detectSingleFace(queryImage1, new faceapi.TinyFaceDetectorOptions).withFaceLandmarks(useTinyModel).withFaceDescriptor()
+    const singleResult = await faceapi.detectSingleFace(queryImage1).withFaceLandmarks().withFaceDescriptor()
     // console.log(results)
     // console.log(singleResult)
 
@@ -39,10 +34,16 @@ async function compareFaces() {
     // }
 
     const dist = faceapi.euclideanDistance(results.descriptor, singleResult.descriptor)
-    console.log(dist)
+    console.log(`Euclidean distance: ${dist}`)
 }
 
 loadModel()
-    .then(console.log('loaded'))
+    .then(console.log('Models loaded'))
     .then(compareFaces)
     // .then(getDetection)
+
+
+// async function getDetection() {
+//     const detection = await faceapi.detectSingleFace(referenceImage)
+//     console.log(detection)
+// }
