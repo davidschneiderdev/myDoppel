@@ -1,5 +1,3 @@
-const imageUpload = document.getElementById('imageUpload');
-const dropdownMenu = document.getElementById('dropdown');
 
 const theOffice = 'http://api.tvmaze.com/shows/526/cast';
 const gameOfThrones = 'http://api.tvmaze.com/shows/82/cast';
@@ -17,29 +15,45 @@ const satLive = 'http://api.tvmaze.com/shows/361/cast';
 const seinfeld = 'http://api.tvmaze.com/shows/530/cast';
 const sopranos = 'http://api.tvmaze.com/shows/527/cast';
 
-let showUrl = lost;
+let showUrl = gameOfThrones;
 
-dropdownMenu.addEventListener('click', (event) => {
-    console.log('Button has been clicked.')
-});
+// dropdownMenu.addEventListener('click', (event) => {
+//     console.log('Button has been clicked.')
+// });
+
+let imageUpload;
+let dropdownMenu;
+let userPhotoFrame;
+let matchedPhotoFrame;
 
 
+window.addEventListener('DOMContentLoaded', function(event) {
+    imageUpload = document.getElementById('imageUpload');
+    dropdownMenu = document.getElementById('dropdown');
+    userPhotoFrame = document.getElementById('userPhoto');
+    matchedPhotoFrame = document.querySelector('.matchedImage');
+    // console.log(userPhotoFrame);
+    // console.log(imageUpload);
+    console.log(matchedPhotoFrame)
+    Promise.all([
+        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+        faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models'),
+        faceapi.nets.tinyFaceDetector.loadFromUri('/models')
+    ])
+        .then(start)
+})
 
-
-Promise.all([
-    // faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-    faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models'),
-    faceapi.nets.tinyFaceDetector.loadFromUri('/models')
-])
-    .then(start)
 
 function start() {
-    document.body.append('API Models Loaded')
+    // document.body.append('API Models Loaded') 
+    // console.log(userPhotoFrame);
     imageUpload.addEventListener('change', async function() {
+        // console.log(userPhotoFrame);
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
-        document.body.append(referenceImage)
+        userPhotoFrame.textContent = "";
+        userPhotoFrame.append(referenceImage)
+        // console.log(userPhotoFrame);
         try {
             runComparison(showUrl);
         } 
@@ -49,8 +63,10 @@ function start() {
     })
 }
 
-
-
+let loadFile = function (event) {
+    let image = document.querySelector('.js-userPhoto');
+    image.src = URL.createObjectURL(event.target.imageUpload.files[0]);
+}
 
 function createUrlArray(dataObject) {
     let characterArray = [];
@@ -59,7 +75,6 @@ function createUrlArray(dataObject) {
     }
     return characterArray;
 }
-
 
 function getCalculations(characterArray) {
     return Promise.all(
@@ -90,13 +105,16 @@ async function fetchQueryImage(characterObject) {
 function appendImgToPage(imgSrc) {
     let img = document.createElement('img');
     img.src = imgSrc;
-    document.body.appendChild(img);
+    // document.body.append(img);
+    matchedPhotoFrame.append(img);
 }
 
 function appendMessageToPage(characterName) {
-    let h3 = document.createElement('h3');
-    h3.textContent = `Congrats! Your closest character match is ${characterName}.`;
-    document.body.appendChild(h3);
+    let p = document.createElement('p');
+    p.textContent = `Congrats! Your closest character match is ${characterName}.`;
+    // document.body.appendChild(h3);
+    matchedPhotoFrame.append(p);
+
 }
 
 function renderResultsToPage(characterCard) {
@@ -104,25 +122,6 @@ function renderResultsToPage(characterCard) {
     appendMessageToPage(characterCard.characterName)
     // console.log(characterCard.distance)
 }
-
-
-async function runComparison(showUrl) {
-    try {
-        const response = await fetch(showUrl);
-        const myJson = await response.json();
-        const characterArray = await createUrlArray(myJson);
-        const objectArray = await getCalculations(characterArray);
-        const sortedArray = objectArray.sort((a, b) => (a.distance > b.distance) ? 1 : -1).filter(function (el) {
-            return el.distance != null;
-        });
-        console.log(sortedArray);
-        renderResultsToPage(sortedArray[0]);
-    }
-    catch(err) {
-        console.log('Error occured during runComparison.')
-    }
-}
-
 
 async function compareFaces(referenceImage, queryImage) {
     try {
@@ -145,6 +144,38 @@ async function compareFaces(referenceImage, queryImage) {
         console.log("Couldn't calculate.")
     }
 }
+
+async function runComparison(showUrl) {
+    try {
+        const response = await fetch(showUrl);
+        const myJson = await response.json();
+        const characterArray = await createUrlArray(myJson);
+        const objectArray = await getCalculations(characterArray);
+        const sortedArray = objectArray.sort((a, b) => (a.distance > b.distance) ? 1 : -1).filter(function (el) {
+            return el.distance != null;
+        });
+        // console.log(sortedArray);
+        renderResultsToPage(sortedArray[0]);
+    }
+    catch(err) {
+        console.log('Error occured during runComparison.')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // function getCastImages(castURL) {
