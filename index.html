@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script defer src="scripts/face-api.min.js"></script>
-    <script defer src="scripts/index.js"></script>
+    <script src="scripts/face-api.min.js"></script>
+    <script src="scripts/index.js"></script>
     <title>Front-End-Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
 </head>
 <body>
-    <input type="file" id="imageUpload">
-    <div class="dropdown">
-        <button class="dropbtn">Dropdown</button>
-        <div class="dropdown-content" id="dropdown">
-          <a id="">Link 1</a>
-          <a id="">Link 2</a>
-          <a id="">Link 3</a>
+    <div class="mainContainer">
+        <header>
+            <div class="title">
+                <h1>doppelgänger</h1>
+            </div>
+        </header>
+        <div class="userPhoto js-userPhoto" id="userPhoto">
+            <label for="imageUpload" class="selectPhoto">Upload Your Photo!</label>
         </div>
-      </div>
+        <div class="selectShow">
+            <button class="dropbtn">Select Show</button>
+            <div class="dropdown-content" id="dropdown">
+              <a id="">Link 1</a>
+              <a id="">Link 2</a>
+              <a id="">Link 3</a>
+            </div>
+          </div>
+        <div class="matchedImage"></div>
+        <div class="optionButtons">
+            <button class="match"></button>
+            <button class="newPhoto"></button>
+        </div>
+    </div>
+    <input type="file" id="imageUpload" class="photoInput" style="visibility: hidden">
+    
+
 </body>
 </html>
