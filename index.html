@@ -20,18 +20,19 @@
         <div class="userPhoto js-userPhoto" id="userPhoto">
             <label for="imageUpload" class="selectPhoto">Upload Your Photo!</label>
         </div>
-        <div class="selectShow">
-            <button class="dropbtn">Select Show</button>
-            <div class="dropdown-content" id="dropdown">
-              <a id="">Link 1</a>
-              <a id="">Link 2</a>
-              <a id="">Link 3</a>
-            </div>
-          </div>
+        <div class="dropdown">
+            <select id="showList">
+                <option>Select TV Show</option>
+                <option value="theOffice">The Office</option>
+                <option value="saab">Saab</option>
+                <option value="fiat">Fiat</option>
+                <option value="audi">Audi</option>
+            </select>
+        </div>
         <div class="matchedImage"></div>
         <div class="optionButtons">
-            <button class="match"></button>
-            <button class="newPhoto"></button>
+            <button class="match">find match</button>
+            <button class="newPhoto">new photo</button>
         </div>
     </div>
     <input type="file" id="imageUpload" class="photoInput" style="visibility: hidden">

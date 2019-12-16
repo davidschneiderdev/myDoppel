@@ -16,25 +16,23 @@ const seinfeld = 'http://api.tvmaze.com/shows/530/cast';
 const sopranos = 'http://api.tvmaze.com/shows/527/cast';
 
 let showUrl = gameOfThrones;
-
-// dropdownMenu.addEventListener('click', (event) => {
-//     console.log('Button has been clicked.')
-// });
+console.log(showUrl);
 
 let imageUpload;
-let dropdownMenu;
 let userPhotoFrame;
 let matchedPhotoFrame;
+let dropdownMenu;
 
 
 window.addEventListener('DOMContentLoaded', function(event) {
     imageUpload = document.getElementById('imageUpload');
-    dropdownMenu = document.getElementById('dropdown');
     userPhotoFrame = document.getElementById('userPhoto');
     matchedPhotoFrame = document.querySelector('.matchedImage');
+    dropdownMenu = document.getElementById('showList');
+    console.log(dropdownMenu)
     // console.log(userPhotoFrame);
     // console.log(imageUpload);
-    console.log(matchedPhotoFrame)
+    // console.log(matchedPhotoFrame)
     Promise.all([
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
@@ -48,6 +46,14 @@ window.addEventListener('DOMContentLoaded', function(event) {
 function start() {
     // document.body.append('API Models Loaded') 
     // console.log(userPhotoFrame);
+
+    dropdownMenu.onchange = function () {
+        let showValue = document.getElementById('showList').value;
+        console.log(showValue);
+        let showUrl = showValue;
+        console.log(showUrl);
+    }
+
     imageUpload.addEventListener('change', async function() {
         // console.log(userPhotoFrame);
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
@@ -111,7 +117,7 @@ function appendImgToPage(imgSrc) {
 
 function appendMessageToPage(characterName) {
     let p = document.createElement('p');
-    p.textContent = `Congrats! Your closest character match is ${characterName}.`;
+    p.textContent = `Your closest character match is ${characterName}.`;
     // document.body.appendChild(h3);
     matchedPhotoFrame.append(p);
 
