@@ -2,7 +2,6 @@
 const theOffice = 'http://api.tvmaze.com/shows/526/cast';
 const gameOfThrones = 'http://api.tvmaze.com/shows/82/cast';
 const walkingDead = 'http://api.tvmaze.com/shows/73/cast';
-const friends = 'http://api.tvmaze.com/shows/431/cast';
 const bigBang = 'http://api.tvmaze.com/shows/66/cast';
 const breakingBad = 'http://api.tvmaze.com/shows/169/cast';
 const doctorWho = 'http://api.tvmaze.com/shows/210/cast';
@@ -15,13 +14,15 @@ const satLive = 'http://api.tvmaze.com/shows/361/cast';
 const seinfeld = 'http://api.tvmaze.com/shows/530/cast';
 const sopranos = 'http://api.tvmaze.com/shows/527/cast';
 
-let showUrl = gameOfThrones;
+// let showUrl;
+let showUrl = theOffice;
 console.log(showUrl);
 
 let imageUpload;
 let userPhotoFrame;
 let matchedPhotoFrame;
 let dropdownMenu;
+let findMatchButton;
 
 
 window.addEventListener('DOMContentLoaded', function(event) {
@@ -29,6 +30,8 @@ window.addEventListener('DOMContentLoaded', function(event) {
     userPhotoFrame = document.getElementById('userPhoto');
     matchedPhotoFrame = document.querySelector('.matchedImage');
     dropdownMenu = document.getElementById('showList');
+    findMatchButton = document.querySelector('.match');
+
     console.log(dropdownMenu)
     // console.log(userPhotoFrame);
     // console.log(imageUpload);
@@ -50,7 +53,7 @@ function start() {
     dropdownMenu.onchange = function () {
         let showValue = document.getElementById('showList').value;
         console.log(showValue);
-        let showUrl = showValue;
+        showUrl = eval(showValue);
         console.log(showUrl);
     }
 
@@ -58,6 +61,7 @@ function start() {
         // console.log(userPhotoFrame);
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
         userPhotoFrame.textContent = "";
+        
         userPhotoFrame.append(referenceImage)
         // console.log(userPhotoFrame);
         try {

@@ -1,19 +1,27 @@
 
 const referenceImage = document.getElementById('referenceImage');
-const queryImage1 = document.getElementById('queryImage1');
 
-// console.log(faceapi.nets)
 
-async function loadModel() {
-    // await faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-    await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-    await faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+function loadModel() {
+    const mainModel = faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+    const landmarkModel = faceapi.nets.faceLandmark68Net.loadFromUri('/models')
+    const recModel = faceapi.nets.faceRecognitionNet.loadFromUri('/models')
     // await faceapi.nets.faceLandmark68TinyNet.loadFromUri('/models'),
-    await faceapi.nets.faceRecognitionNet.loadFromUri('/models')
+    // await faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+    return Promise.all([mainModel, landmarkModel, recModel])
+    // getCastImages(theOfficeCast);
 }
 
+async function fetchQueryImage(imageUrl) {
+    const queryImage = await faceapi.fetchImage(imageUrl);
+    // console.log(image);
+    compareFaces(referenceImage, queryImage)
+}
 
-async function compareFaces() {
+// const testURL = 'http://static.tvmaze.com/uploads/images/original_untouched/0/1813.jpg';
+
+
+async function compareFaces(referenceImage, queryImage) {
     const results = await faceapi.detectSingleFace(referenceImage).withFaceLandmarks().withFaceDescriptor()
     // console.log(results)
 
@@ -21,26 +29,31 @@ async function compareFaces() {
         console.log("no face")
         return
     }
-
-    // const faceMatcher = new faceapi.FaceMatcher(results)
-
-    const singleResult = await faceapi.detectSingleFace(queryImage1).withFaceLandmarks().withFaceDescriptor()
-    // console.log(results)
+    
+    const singleResult = await faceapi.detectSingleFace(queryImage).withFaceLandmarks().withFaceDescriptor()
     // console.log(singleResult)
-
-    // if (singleResult) {
-    //     const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
-    //     console.log(bestMatch.toString())
-    // }
-
     const dist = faceapi.euclideanDistance(results.descriptor, singleResult.descriptor)
     console.log(`Euclidean distance: ${dist}`)
 }
 
-loadModel()
-    .then(console.log('Models loaded'))
-    .then(compareFaces)
-    // .then(getDetection)
+
+// async function compareFaces() {
+//     const results = await faceapi.detectSingleFace(referenceImage).withFaceLandmarks().withFaceDescriptor()
+//     // console.log(results)
+
+//     if (!results) {
+//         console.log("no face")
+//         return
+//     }
+    
+//     const singleResult = await faceapi.detectSingleFace(queryImage1).withFaceLandmarks().withFaceDescriptor()
+//     const dist = faceapi.euclideanDistance(results.descriptor, singleResult.descriptor)
+//     console.log(`Euclidean distance: ${dist}`)
+// }
+
+// loadModel()
+//     .then(console.log('Models loaded'))
+//     .then(compareFaces)
 
 
 // async function getDetection() {
