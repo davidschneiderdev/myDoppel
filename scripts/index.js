@@ -16,13 +16,14 @@ const sopranos = 'http://api.tvmaze.com/shows/527/cast';
 
 // let showUrl;
 let showUrl = theOffice;
-console.log(showUrl);
+// console.log(showUrl);
 
 let imageUpload;
 let userPhotoFrame;
 let matchedPhotoFrame;
 let dropdownMenu;
 let findMatchButton;
+let resultTextBox;
 
 
 window.addEventListener('DOMContentLoaded', function(event) {
@@ -31,8 +32,9 @@ window.addEventListener('DOMContentLoaded', function(event) {
     matchedPhotoFrame = document.querySelector('.matchedImage');
     dropdownMenu = document.getElementById('showList');
     findMatchButton = document.querySelector('.match');
+    resultTextBox = document.querySelector('.textBox');
 
-    console.log(dropdownMenu)
+    // console.log(dropdownMenu)
     // console.log(userPhotoFrame);
     // console.log(imageUpload);
     // console.log(matchedPhotoFrame)
@@ -58,11 +60,22 @@ function start() {
     }
 
     imageUpload.addEventListener('change', async function() {
-        // console.log(userPhotoFrame);
+        console.log('button clicked')
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
         userPhotoFrame.textContent = "";
-        
+        matchedPhotoFrame.textContent = "";
         userPhotoFrame.append(referenceImage)
+    })
+
+    findMatchButton.addEventListener('click', async function() {
+        // console.log(userPhotoFrame);
+        const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
+        // userPhotoFrame.textContent = "";
+        matchedPhotoFrame.textContent = "";
+        resultTextBox.textContent = "";
+
+        
+        // userPhotoFrame.append(referenceImage)
         // console.log(userPhotoFrame);
         try {
             runComparison(showUrl);
@@ -121,9 +134,9 @@ function appendImgToPage(imgSrc) {
 
 function appendMessageToPage(characterName) {
     let p = document.createElement('p');
-    p.textContent = `Your closest character match is ${characterName}.`;
+    p.textContent = `${characterName}`;
     // document.body.appendChild(h3);
-    matchedPhotoFrame.append(p);
+    resultTextBox.append(p);
 
 }
 
