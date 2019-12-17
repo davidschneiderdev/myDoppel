@@ -1,8 +1,8 @@
 
 * {
     box-sizing: border-box;
-    outline: 2px solid red;
-    /* outline: none; */
+    /* outline: 2px solid red; */
+    outline: none;
 }
 
 html, body {
@@ -110,6 +110,10 @@ header h1 {
     /* border: 1px solid white; */
 }
 
+.selectPhoto {
+    color: white;
+}
+
 .matchedImage {
     height: 225px;
     width: 100%;
@@ -187,7 +191,7 @@ header h1 {
 
 .optionButtons {
     display: flex;
-    width: 60%;
+    width: 75%;
     justify-content: space-between;
     margin-bottom: 5%;
 }
@@ -272,6 +276,11 @@ header h1 {
         border-bottom: 2px white solid;
     }
 
+    .logoFrame {
+        height: 150px;
+        width: 150px;
+    }
+
     header {
         width: 75%;
     }
@@ -281,6 +290,7 @@ header h1 {
     }
 
     .userPhoto {
+        margin-top: 50px;
         height: 400px;
         width: 400px;
     }
@@ -290,6 +300,7 @@ header h1 {
     }
 
     .matchedImage {
+        margin-top: 50px;
         height: 400px;
         width: 100%;
     }
@@ -297,6 +308,7 @@ header h1 {
     .optionButtons {
         justify-content: space-evenly;
         margin-top: 50px;
+        width: 35%;
     }
 }
 
@@ -316,6 +328,11 @@ header h1 {
         border-bottom: 2px white solid;
     }
 
+    .logoFrame {
+        height: 150px;
+        width: 150px;
+    }
+
     header {
         width: 75%;
     }
@@ -332,6 +349,7 @@ header h1 {
     .optionButtons {
         justify-content: space-evenly;
         margin-top: 50px;
+        width: 25%;
     }
 }
 
