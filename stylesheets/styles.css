@@ -84,6 +84,15 @@ header h1 {
     width: 100%;
 }
 
+.cameraInputButton {
+    height: 70px;
+    width: 70px;
+}
+
+.cameraInputButton > img {
+    width: 100%;
+}
+
 .userPhoto {
     height: 200px;
     width: 200px;
