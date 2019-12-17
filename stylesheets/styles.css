@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
     /* outline: 2px solid red; */
@@ -8,15 +9,41 @@ html, body {
     height: 100%;
 }
 
+body {
+    background-color: #6bb0bb;
+}
+
+
+
+
 .mainContainer {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    text-align: center;
+    margin-top: 15px;
+}
+
+header h1 {
+    color: white;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .imageUpload {
@@ -26,9 +53,21 @@ html, body {
     justify-content: center;
 }
 
+.cameraIcon {
+    height: 70px;
+    width: 70px;
+    margin: 10px;
+}
+
+.cameraIcon > img {
+    width: 100%;
+}
+
 .userPhoto {
     height: 200px;
     width: 200px;
+    border: 1px solid white;
+    border-radius: 25%;
     box-shadow:
   0 3.3px 2.2px rgba(0, 0, 0, 0.02),
   0 8px 5.3px rgba(0, 0, 0, 0.028),
@@ -37,17 +76,22 @@ html, body {
   0 50.6px 33.4px rgba(0, 0, 0, 0.05),
   0 121px 80px rgba(0, 0, 0, 0.07)
 ;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .userPhoto > img {
     height: 100%;
+    border-radius: 25%;
 }
 
 .matchedImage {
-    height: 200px;
-    width: 200px;
+    height: 225px;
+    width: 100%;
+    border-radius: 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,13 +109,84 @@ html, body {
 
 .matchedImage > img {
     height: 100%;
+    border-radius: 25%;
 }
+
+.dropdown {
+    /* position: absolute; */
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    
+  }
+  
+.dropdown select {
+    background-color: #0563af;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+.dropdown::before {
+    /* content: "\f13a"; */
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+.dropdown:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+.dropdown select option {
+    padding: 30px;
+  }
+
 
 .textBox {
     text-align: center;
 }
 
-@media screen and (min-width: 768px) {
+.optionButtons {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    margin-bottom: 5%;
+}
+
+.optionButtons label {
+    padding: 1px;
+}
+
+@media (min-width: 768px) {
+
+    .mainContainer {
+        justify-content: space-between;
+    }
+    /* header {
+        margin-top: 150px;
+    } */
+    
+    .wrapper {
+        height: 70%;
+        justify-content: flex-start;
+    }
 
     header h1 {
         font-size: 80px;
@@ -84,11 +199,21 @@ html, body {
 
     .matchedImage {
         height: 400px;
-        width: 400px;
+        width: 100%;
+    }
+
+    .optionButtons {
+        justify-content: space-evenly;
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media (min-width: 1200px) {
+
+    .wrapper {
+        height: 70%;
+    }
+
+
     .userPhoto {
         height: 400px;
         width: 400px;
@@ -96,7 +221,7 @@ html, body {
 
     .matchedImage {
         height: 400px;
-        width: 400px;
+        width: 100%;
     }
 }
 
