@@ -1,7 +1,8 @@
 
 * {
     box-sizing: border-box;
-    /* outline: 2px solid red; */
+    outline: 2px solid red;
+    /* outline: none; */
 }
 
 html, body {
@@ -12,9 +13,6 @@ html, body {
 body {
     background-color: #6bb0bb;
 }
-
-
-
 
 .mainContainer {
     width: 100%;
@@ -27,13 +25,36 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.title {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+
+
+.logoFrame {
+    height: 100px;
+    width: 100px;
+}
+
+.logoFrame > img {
+    width: 100%;
+}
+
+
+
 header {
     text-align: center;
-    margin-top: 15px;
+    /* width: 75%; */
 }
 
 header h1 {
     color: white;
+    /* font-family: 'Nunito', sans-serif; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 1500;
+    /* text-shadow: 2px 2px 2px gray; */
 }
 
 .wrapper {
@@ -86,12 +107,14 @@ header h1 {
 .userPhoto > img {
     height: 100%;
     border-radius: 25%;
+    /* border: 1px solid white; */
 }
 
 .matchedImage {
     height: 225px;
     width: 100%;
     border-radius: 25%;
+    /* border: 1px solid white; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -109,22 +132,16 @@ header h1 {
 
 .matchedImage > img {
     height: 100%;
+    border: 1px solid white;
     border-radius: 25%;
 }
 
-.dropdown {
-    /* position: absolute; */
-    /* top: 50%;
-    left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    
-  }
   
 .dropdown select {
     background-color: #0563af;
     color: white;
     padding: 12px;
-    width: 250px;
+    width: 145px;
     border: none;
     font-size: 15px;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
@@ -161,6 +178,11 @@ header h1 {
 
 .textBox {
     text-align: center;
+    color: white;
+    font-size: 16px;
+     text-shadow: 2px 2px 2px gray;
+    
+
 }
 
 .optionButtons {
@@ -173,6 +195,64 @@ header h1 {
 .optionButtons label {
     padding: 1px;
 }
+
+
+.match {
+    box-shadow: 0px 10px 14px -7px #276873;
+    background: #f25a78d9;
+	/* background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%); */
+	background-color: #f25a78d9;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:13px 15px;
+	text-decoration:none;
+	/* text-shadow:0px 1px 0px #3d768a; */
+}
+/* .match:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+} */
+.match:active {
+	position:relative;
+	top:1px;
+}
+
+.newPhotoButton {
+    width: 107.84px;
+    box-shadow: 0px 10px 14px -7px #276873;
+    background: #f25a78d9;
+	/* background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%); */
+    background-color: #f25a78d9;
+    border: .5px solid rgba(255, 255, 255, 0.735);
+	border-radius:8px;
+	display: block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:13px 32px;
+    text-decoration:none;
+    text-align: center;
+    /* vertical-align: center; */
+    line-height: 2.8;
+}
+
+.:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+.match:active {
+	position:relative;
+	top:1px;
+}
+
+
 
 @media (min-width: 768px) {
 
@@ -188,6 +268,14 @@ header h1 {
         justify-content: flex-start;
     }
 
+    .title {
+        border-bottom: 2px white solid;
+    }
+
+    header {
+        width: 75%;
+    }
+
     header h1 {
         font-size: 80px;
     }
@@ -197,6 +285,10 @@ header h1 {
         width: 400px;
     }
 
+    .dropdown {
+        margin-top: 50px;
+    }
+
     .matchedImage {
         height: 400px;
         width: 100%;
@@ -204,6 +296,7 @@ header h1 {
 
     .optionButtons {
         justify-content: space-evenly;
+        margin-top: 50px;
     }
 }
 
@@ -219,9 +312,26 @@ header h1 {
         width: 400px;
     }
 
+    .title {
+        border-bottom: 2px white solid;
+    }
+
+    header {
+        width: 75%;
+    }
+
+    .dropdown {
+        margin-top: 50px;
+    }
+
     .matchedImage {
-        height: 400px;
+        height: 380px;
         width: 100%;
+    }
+
+    .optionButtons {
+        justify-content: space-evenly;
+        margin-top: 50px;
     }
 }
 

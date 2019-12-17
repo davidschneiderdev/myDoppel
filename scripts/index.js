@@ -136,7 +136,7 @@ function appendImgToPage(imgSrc) {
 
 function appendMessageToPage(characterName) {
     let p = document.createElement('p');
-    p.textContent = `🎉 Your character match: ${characterName} 🎉`;
+    p.textContent = `Your character match: ${characterName}`;
     // document.body.appendChild(h3);
     resultTextBox.append(p);
 

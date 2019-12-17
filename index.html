@@ -8,14 +8,18 @@
     <script src="scripts/index.js"></script>
     <title>Front-End-Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Jaldi:700|Nunito|Quicksand|Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/styles.css">
 </head>
 <body>
     <div class="mainContainer">
         <header>
             <div class="title">
-                <h1>myDoppel</h1>
                 <input type="file" id="imageUpload" class="photoInput" style="visibility: hidden">
+                <div class="logoFrame">
+                    <img src="images/actor.png">
+                </div>
+                <h1>myDoppel</h1>
             </div>
         </header>
         <div class="wrapper">
@@ -48,8 +52,9 @@
             </div>
             <div class="optionButtons">
                 <button class="match">find match</button>
+
                 <!-- <button class="newPhoto">new photo</button> -->
-                <label for="imageUpload" class="selectPhoto">new photo</label>
+                <label for="imageUpload" class="selectPhoto newPhotoButton">new photo</label>
             </div>
         </div>
     </div>
