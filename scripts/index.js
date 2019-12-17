@@ -34,6 +34,7 @@ window.addEventListener('DOMContentLoaded', function(event) {
     findMatchButton = document.querySelector('.match');
     resultTextBox = document.querySelector('.textBox');
 
+
     // console.log(dropdownMenu)
     // console.log(userPhotoFrame);
     // console.log(imageUpload);
@@ -64,6 +65,7 @@ function start() {
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
         userPhotoFrame.textContent = "";
         matchedPhotoFrame.textContent = "";
+        resultTextBox.textContent = "";
         userPhotoFrame.append(referenceImage)
     })
 
@@ -72,7 +74,7 @@ function start() {
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
         // userPhotoFrame.textContent = "";
         matchedPhotoFrame.textContent = "";
-        resultTextBox.textContent = "";
+        resultTextBox.textContent = ''
 
         
         // userPhotoFrame.append(referenceImage)
@@ -134,7 +136,7 @@ function appendImgToPage(imgSrc) {
 
 function appendMessageToPage(characterName) {
     let p = document.createElement('p');
-    p.textContent = `${characterName}`;
+    p.textContent = `🎉 Your character match: ${characterName} 🎉`;
     // document.body.appendChild(h3);
     resultTextBox.append(p);
 
