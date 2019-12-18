@@ -1,8 +1,11 @@
 
+// Global Variables
+
 const theOffice = 'http://api.tvmaze.com/shows/526/cast';
 const gameOfThrones = 'http://api.tvmaze.com/shows/82/cast';
 const walkingDead = 'http://api.tvmaze.com/shows/73/cast';
 const bigBang = 'http://api.tvmaze.com/shows/66/cast';
+const strangerThings = 'http://api.tvmaze.com/shows/2993/cast'
 const breakingBad = 'http://api.tvmaze.com/shows/169/cast';
 const doctorWho = 'http://api.tvmaze.com/shows/210/cast';
 const houseOfCards = 'http://api.tvmaze.com/shows/175/cast';
@@ -13,8 +16,9 @@ const thirtyRock = 'http://api.tvmaze.com/shows/537/cast';
 const satLive = 'http://api.tvmaze.com/shows/361/cast';
 const seinfeld = 'http://api.tvmaze.com/shows/530/cast';
 const sopranos = 'http://api.tvmaze.com/shows/527/cast';
+const parksAndRec = 'http://api.tvmaze.com/shows/174/cast';
+const avatarAir = 'http://api.tvmaze.com/shows/555/cast';
 
-// let showUrl;
 let showUrl = theOffice;
 // console.log(showUrl);
 
@@ -25,6 +29,8 @@ let dropdownMenu;
 let findMatchButton;
 let resultTextBox;
 
+// Event Listener for DOM to Load
+
 
 window.addEventListener('DOMContentLoaded', function(event) {
     imageUpload = document.getElementById('imageUpload');
@@ -34,11 +40,6 @@ window.addEventListener('DOMContentLoaded', function(event) {
     findMatchButton = document.querySelector('.match');
     resultTextBox = document.querySelector('.textBox');
 
-
-    // console.log(dropdownMenu)
-    // console.log(userPhotoFrame);
-    // console.log(imageUpload);
-    // console.log(matchedPhotoFrame)
     Promise.all([
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
@@ -48,6 +49,7 @@ window.addEventListener('DOMContentLoaded', function(event) {
         .then(start)
 })
 
+// Start Function After Loading DOM and Face API Models
 
 function start() {
     // document.body.append('API Models Loaded') 
@@ -60,8 +62,10 @@ function start() {
         console.log(showUrl);
     }
 
+    // Event Listener for User Uploaded Image
+
     imageUpload.addEventListener('change', async function() {
-        console.log('button clicked')
+        // console.log('button clicked')
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
         userPhotoFrame.textContent = "";
         matchedPhotoFrame.textContent = "";
@@ -69,21 +73,26 @@ function start() {
         userPhotoFrame.append(referenceImage)
     })
 
-    findMatchButton.addEventListener('click', async function() {
-        // console.log(userPhotoFrame);
-        const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
-        // userPhotoFrame.textContent = "";
-        matchedPhotoFrame.textContent = "";
-        resultTextBox.textContent = ''
+    // Event Listener for Find Match Button
 
-        
-        // userPhotoFrame.append(referenceImage)
-        // console.log(userPhotoFrame);
+    findMatchButton.addEventListener('click', async function() {
+        // // console.log(userPhotoFrame);
+        // const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
+        // // userPhotoFrame.textContent = "";
+        // matchedPhotoFrame.textContent = "";
+        // resultTextBox.textContent = ''
+
         try {
+            // console.log(userPhotoFrame);
+            const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
+            // userPhotoFrame.textContent = "";
+            matchedPhotoFrame.textContent = "";
+            resultTextBox.textContent = ''
             runComparison(showUrl);
         } 
         catch(err) {
             console.log(`Error has occured. ${err}`)
+
         }
     })
 }
@@ -110,7 +119,6 @@ function getCalculations(characterArray) {
 async function fetchQueryImage(characterObject) {
     try {
         const referenceImage = await faceapi.bufferToImage(imageUpload.files[0])
-        // const queryImage = await faceapi.fetchImage(characterObject.character.image.original);
         const queryImage = await faceapi.fetchImage(characterObject.person.image.original);
         const calculation = await compareFaces(referenceImage, queryImage)
         let characterCard = {
@@ -123,21 +131,19 @@ async function fetchQueryImage(characterObject) {
     }
     catch(err) {
         console.log(`Error occured during fetchQueryImage. Error ${err}`);
-        const queryImage = await faceapi.fetchImage(characterObject.person.image.original);
+        const queryImage = await faceapi.fetchImage(characterObject.character.image.original);
     }
 }
 
 function appendImgToPage(imgSrc) {
     let img = document.createElement('img');
     img.src = imgSrc;
-    // document.body.append(img);
     matchedPhotoFrame.append(img);
 }
 
 function appendMessageToPage(characterName) {
     let p = document.createElement('p');
     p.textContent = `Your character match: ${characterName}`;
-    // document.body.appendChild(h3);
     resultTextBox.append(p);
 
 }
@@ -145,17 +151,16 @@ function appendMessageToPage(characterName) {
 function renderResultsToPage(characterCard) {
     appendImgToPage(characterCard.imgSrc)
     appendMessageToPage(characterCard.characterName)
-    // console.log(characterCard.distance)
 }
 
 async function compareFaces(referenceImage, queryImage) {
     try {
         const useTinyModel = true;
         const results = await faceapi.detectSingleFace(referenceImage, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks(useTinyModel).withFaceDescriptor()
-        // console.log(results)
+
     
         if (!results) {
-            console.log("no face")
+            console.log("Did not find face.")
             return
         }
         
@@ -166,7 +171,7 @@ async function compareFaces(referenceImage, queryImage) {
         return dist;
     }
     catch(err) {
-        console.log("Couldn't calculate.")
+        console.log("Could not calculate.");
     }
 }
 
