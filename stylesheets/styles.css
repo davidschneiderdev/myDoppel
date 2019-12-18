@@ -98,6 +98,7 @@ header h1 {
     width: 200px;
     border: 1px solid white;
     border-radius: 25%;
+    background: rgb(255,255,255);
     box-shadow:
   0 3.3px 2.2px rgba(0, 0, 0, 0.02),
   0 8px 5.3px rgba(0, 0, 0, 0.028),
@@ -110,6 +111,7 @@ header h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 
@@ -117,6 +119,10 @@ header h1 {
     height: 100%;
     border-radius: 25%;
     /* border: 1px solid white; */
+}
+
+.userPhoto label {
+    color: gray;
 }
 
 .selectPhoto {
